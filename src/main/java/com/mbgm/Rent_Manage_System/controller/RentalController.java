@@ -25,7 +25,7 @@ public class RentalController {
     @GetMapping
     public String listRentals(Model model) {
         model.addAttribute("rentals", rentalService.getAll());
-        return "list-rental";
+        return "layout-rental";
     }
 
     @GetMapping("/add")
@@ -33,7 +33,7 @@ public class RentalController {
         model.addAttribute("rental", new Rental());
         model.addAttribute("products", productService.getAllProducts());
         model.addAttribute("customers", customerService.getAll());
-        return "form-rental";
+        return "layout-form-rental";
     }
 
     @PostMapping("/save")
@@ -49,7 +49,7 @@ public class RentalController {
         model.addAttribute("rental", rental);
         model.addAttribute("products", productService.getAllProducts());
         model.addAttribute("customers", customerService.getAll());
-        return "form-rental";
+        return "layout-form-rental";
     }
 
     @GetMapping("/delete/{id}")

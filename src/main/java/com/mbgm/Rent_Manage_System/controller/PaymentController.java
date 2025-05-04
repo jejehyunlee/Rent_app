@@ -31,14 +31,14 @@ public class PaymentController {
     @GetMapping
     public String listPayments(Model model) {
         model.addAttribute("payments", paymentService.getAll());
-        return "list-payment";
+        return "layout-payment";
     }
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("payment", new Payment());
         model.addAttribute("rentals", rentalService.getAll());
-        return "form-payment";
+        return "layout-form-payment";
     }
 
     @PostMapping("/save")
@@ -64,7 +64,7 @@ public class PaymentController {
     
         Untuk menyelesaikan pembayaran, silakan klik link di bawah untuk melanjutkan pembayaran via BCA.
     
-        Link Pembayaran: http://145.79.11.129:8080/payments/paymentForm/%d
+        Link Pembayaran: http://localhost:8080/payments/paymentForm/%d
     
         Instruksi Pembayaran:
         - Pilih metode pembayaran 'Transfer BCA' di form.
@@ -148,7 +148,7 @@ public class PaymentController {
         model.addAttribute("payment", payment);
         model.addAttribute("formattedPaymentDate", formattedDate); // mengirimkan formattedDate
         model.addAttribute("rentals", rentalService.getAll());
-        return "form-payment";
+        return "layout-form-payment";
     }
 
     @GetMapping("/delete/{id}")

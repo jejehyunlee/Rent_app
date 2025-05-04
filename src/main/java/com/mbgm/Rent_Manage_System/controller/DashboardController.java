@@ -46,8 +46,7 @@ public class DashboardController {
         model.addAttribute("getStatusPaid", getStatusPaid);
         model.addAttribute("getStatusUnPaid", getStatusUnPaid);
 
-        return "dashboard";
+        return "layout-dashboard";
     }
-
 
 }

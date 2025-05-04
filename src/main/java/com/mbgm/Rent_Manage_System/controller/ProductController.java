@@ -21,13 +21,13 @@ public class ProductController {
     public String listProducts(Model model) {
         List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
-        return "list-product";
+        return "layout-product";
     }
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("product", new Product());
-        return "form-product"; // file: templates/product/form.html
+        return "layout-form-product"; // file: templates/product/form.html
     }
 
     @PostMapping("/save")
@@ -42,7 +42,7 @@ public class ProductController {
                 .orElseThrow(() -> new RuntimeException("Product not found"));
         productService.updateProduct(id, product);
         model.addAttribute("product", product);
-        return "/form-product"; // pakai form.html juga
+        return "/layout-form-product"; // pakai form.html juga
     }
 
     @GetMapping("/delete/{id}")
