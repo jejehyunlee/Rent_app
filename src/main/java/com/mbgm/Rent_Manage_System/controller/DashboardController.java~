@@ -1,0 +1,52 @@
+package com.mbgm.Rent_Manage_System.controller;
+
+
+import com.mbgm.Rent_Manage_System.entity.Payment;
+import com.mbgm.Rent_Manage_System.entity.Rental;
+import com.mbgm.Rent_Manage_System.repository.CustomerRepository;
+import com.mbgm.Rent_Manage_System.repository.RentalRepository;
+import com.mbgm.Rent_Manage_System.service.PaymentService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+@Controller
+@RequiredArgsConstructor
+public class DashboardController {
+
+    private final RentalRepository rentalRepository;
+    private final PaymentService paymentService;
+    private final CustomerRepository customerRepository;
+
+
+    @GetMapping("/dashboard")
+    public String showDashboard(Model model) {
+
+        List<Payment> totalAvenuePaid = paymentService.getByStatusPaid("PAID");
+
+        
+
+        long totalRentals = rentalRepository.count();
+        long totalCustomers = customerRepository.count();
+        BigDecimal totalRevenue = rentalRepository.sumTotalRevenue();
+        List<Rental> recentRentals = rentalRepository.findTop5ByOrderByStartDateDesc();
+        List<Payment> getStatusPaid = paymentService.getByStatusPaid("PAID");
+        List<Payment> getStatusUnPaid = paymentService.getByStatusUnpaid("UNPAID");
+
+
+        model.addAttribute("totalRentals", totalRentals);
+        model.addAttribute("totalCustomers", totalCustomers);
+        model.addAttribute("totalRevenue", totalRevenue);
+        model.addAttribute("recentRentals", recentRentals);
+        model.addAttribute("getStatusPaid", getStatusPaid);
+        model.addAttribute("getStatusUnPaid", getStatusUnPaid);
+
+        return "dashboard";
+    }
+
+
+}

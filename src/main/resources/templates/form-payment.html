@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Tagihan</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container py-4">
+    <div style="max-width: 600px;">
+        <h3 class="mb-4" th:text="${payment.id == null} ? 'Tambah Pembayaran' : 'Edit Pembayaran'"></h3>
+
+        <form th:action="@{/payments/save}"
+              th:object="${payment}"
+              method="post"
+              class="card p-4 shadow-sm">
+
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="mb-3">
+                <label for="rentalSelect" class="form-label">Rental</label>
+                <select th:field="*{rental}" id="rentalSelect" class="form-select" required>
+                    <option value="">-- Pilih Rental --</option>
+                    <option th:each="r : ${rentals}"
+                            th:value="${r.id}"
+                            th:data-price="${r.totalPrice}"
+                            th:data-email="${r.customer.email}"
+                            th:data-date="${payment.paymentDate != null ? payment.paymentDate : ''}"
+                            th:text="'Rental #' + ${r.id} + ' - ' + ${r.product.name} + ' (' + ${r.totalPrice} + ')'">
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="paymentDate" class="form-label">Date</label>
+                <input type="date" id="paymentDate" name="paymentDate" class="form-control" required
+                       th:value="${payment.paymentDate != null ? payment.paymentDate : ''}" />
+            </div>
+
+            <div class="mb-3">
+                <label for="amountField" class="form-label">Jumlah</label>
+                <input type="number" step="0.01" th:field="*{amount}" id="amountField" class="form-control" readonly required />
+            </div>
+
+            <div class="mb-3">
+                <label for="emailCustomer" class="form-label">Email Pelanggan</label>
+                <input type="email" id="emailCustomer" name="customerEmail" class="form-control" required
+                       th:value="${payment.rental != null ? payment.rental.customer.email : ''}" readonly />
+            </div>
+
+
+            <div class="d-flex justify-content-between">
+                <a href="/payments" class="btn btn-secondary">Batal</a>
+                <button type="submit" class="btn btn-success">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const rentalSelect = document.getElementById("rentalSelect");
+        const amountField = document.getElementById("amountField");
+        const emailCustomerField = document.getElementById("emailCustomer");
+        const paymentDateField = document.getElementById("paymentDate");
+
+        function updateFieldsFromSelectedRental() {
+            const selectedOption = rentalSelect.options[rentalSelect.selectedIndex];
+            const price = selectedOption.getAttribute("data-price");
+            const email = selectedOption.getAttribute("data-email");
+            const date = selectedOption.getAttribute("data-date");
+
+            if (amountField && price) {
+                amountField.value = parseFloat(price).toFixed(2);
+            }
+
+            if (emailCustomerField && email) {
+                emailCustomerField.value = email;
+            }
+            if (paymentDateField && date) {
+                paymentDateField.value = date;
+            }
+        }
+
+        rentalSelect.addEventListener("change", updateFieldsFromSelectedRental);
+
+        // Jalankan juga saat halaman dimuat jika ada rental yang sudah dipilih
+        if (rentalSelect.value) {
+            updateFieldsFromSelectedRental();
+        }
+    });
+</script>
+
+</body>
+</html>

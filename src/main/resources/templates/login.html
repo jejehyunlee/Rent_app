@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>LOGIN</title>
+    <!-- Link to Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Background Image for the page */
+        body {
+            background-image: url('https://swift-thumbor.sirclocdn.com/unsafe/1200x628/filters:format(webp):quality(70)/web.mitra10.com/media/Blog/konstruksi_adalah.jpg'); /* Ganti dengan URL gambar konstruksi */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+        }
+
+        /* Add opacity and overlay for better readability */
+        .login-container {
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            color: white;
+        }
+
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .alert-info, .alert-danger {
+            color: red;
+        }
+
+        .btn-link {
+            color: white;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alerts = document.querySelectorAll('.alert-danger, .alert-info');
+
+            alerts.forEach(function(alertBox) {
+                alertBox.style.fontSize = '14px';
+                alertBox.style.padding = '10px 20px';
+                alertBox.style.maxWidth = '500px';
+                alertBox.style.margin = '10px auto';
+
+                setTimeout(function () {
+                    alertBox.style.transition = 'opacity 0.5s ease';
+                    alertBox.style.opacity = '0';
+                    setTimeout(() => alertBox.remove(), 500);
+                }, 4000);
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 login-container">
+            <h2 class="text-center mb-4">LOGIN</h2>
+
+            <div th:if="${param.logout}" class="alert alert-info text-center">
+                You have been logged out.
+            </div>
+            <div th:if="${param.error}" class="alert alert-danger text-center">
+                Invalid username or password.
+            </div>
+
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="username" class="text-white">Username For Testing : Jefri </label>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Enter your username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="text-white">Password For Testing : 12345</label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </div>
+            </form>
+
+
+            <div class="text-center mt-3">
+                <a th:href="@{/register}" class="btn btn-link">Don't have an account? Register here</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Link to Bootstrap JS (Optional for some features like dropdowns, modals, etc.) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

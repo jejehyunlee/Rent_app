@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Form Pembayaran</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+<h3>Form Pembayaran</h3>
+
+<form th:action="@{/payments/paymentUser/save}" method="post">
+    <input type="hidden" name="rentalId" th:value="${payment.rental.id}" />
+    <div class="mb-3">
+        <label>Nama Pelanggan</label>
+        <input type="text" class="form-control" th:value="${payment.rental.customer.name}" readonly>
+    </div>
+
+    <div class="mb-3">
+        <label>Produk</label>
+        <input type="text" class="form-control" th:value="${payment.rental.product.name}" readonly>
+    </div>
+
+    <div class="mb-3">
+        <label>Total Tagihan</label>
+        <input type="number" step="0.01" th:field="*{payment.amount}" id="amountField" class="form-control" readonly required />
+    </div>
+
+    <div class="mb-3">
+        <label>Tanggal Pembayaran</label>
+        <input type="date" class="form-control" name="paymentDate" th:value="${payment.paymentDate}" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Alamat Email</label>
+        <input type="email" class="form-control" name="customerEmail" th:value="${payment.rental.customer.email}" required>
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Bayar Sekarang</button>
+    </div>
+</form>
+</body>
+</html>

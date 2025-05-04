@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+    <!-- Link to Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alertBox = document.querySelector('.alert-danger');
+            if (alertBox) {
+                alertBox.style.fontSize = '20px';        // custom ukuran font
+                alertBox.style.padding = '2px 5px';    // custom padding
+                alertBox.style.maxWidth = '500px';       // optional: batasi lebar
+                alertBox.style.margin = '10px auto';     // tengah
+
+                setTimeout(function () {
+                    alertBox.style.transition = 'opacity 0.5s ease';
+                    alertBox.style.opacity = '0';
+                    setTimeout(() => alertBox.remove(), 500); // hapus dari DOM setelah fade out
+                }, 4000); // hilang setelah 4 detik
+            }
+        });
+    </script>
+
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 login-container">
+            <h2 class="text-center mb-4">Register</h2>
+
+            <!-- Error Message -->
+            <div th:if="${error}" class="alert alert-danger text-center">
+                <p th:text="${error}"></p>
+            </div>
+
+            <form th:action="@{/register}" th:object="${user}" method="post">
+                <!-- Username Field -->
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" th:field="*{username}" id="username" class="form-control" placeholder="Enter your username" required>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" th:field="*{password}" id="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+
+                <!-- Role Field -->
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <input type="text" th:field="*{role}" id="role" class="form-control" placeholder="Enter your role" required>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-3">
+                <a th:href="@{/login}" class="btn btn-link">Already have an account? Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Link to Bootstrap JS (Optional for some features like dropdowns, modals, etc.) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
