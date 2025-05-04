@@ -1,0 +1,129 @@
+
+/*Main Layout*/
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: #EBF4FA;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 1rem;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar h4 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    color: #003366;
+}
+
+.sidebar .accordion-button {
+    background-color: transparent;
+    color: #003366;
+    font-weight: 500;
+}
+
+.sidebar .accordion-button:focus {
+    box-shadow: none;
+}
+
+.sidebar .accordion-button.collapsed:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.sidebar .accordion-body a {
+    padding: 6px 0;
+    color: #003366;
+    text-decoration: none;
+    display: block;
+    padding-left: 1.5rem;
+}
+
+.sidebar .accordion-body a:hover {
+    text-decoration: underline;
+}
+
+.main-content {
+    margin-left: 260px;
+    padding: 2rem;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+/*Product CSS*/
+.card {
+    border-radius: 0.75rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);
+}
+th, td {
+    vertical-align: middle !important;
+}
+
+/*Customer CSS*/
+.card {
+    border-radius: 0.75rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);
+}
+th, td {
+    vertical-align: middle !important;
+}
+
+.home-button {
+    display: inline-flex;
+    align-items: center;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.home-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+/*Rental CSS*/
+
+.card {
+    border-radius: 0.75rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);
+}
+th, td {
+    vertical-align: middle !important;
+}
+
+/*Payment CSS*/
+th, td {
+    vertical-align: middle !important;
+}
+
+/*Dashboard CSS*/
+.dashboard-card {
+    min-height: 130px;
+    border-radius: 1rem;
+}
+.nav-btn {
+    min-width: 150px;
+    margin: 0.5rem;
+}
